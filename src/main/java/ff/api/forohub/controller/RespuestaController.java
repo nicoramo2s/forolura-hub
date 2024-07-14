@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @SecurityRequirement(name = "bearer-key")
 public class RespuestaController {
 
-    @Autowired
-    private RespuestaService service;
+    private final RespuestaService service;
+
+    public RespuestaController(RespuestaService service) {
+        this.service = service;
+    }
 
     @PostMapping
     @Transactional

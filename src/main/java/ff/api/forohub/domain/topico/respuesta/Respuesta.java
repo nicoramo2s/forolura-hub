@@ -23,11 +23,11 @@ public class Respuesta {
     private Long id;
     private String mensaje;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "topico_id")
+    @JoinColumn(name = "topico_id")
     private Topico topico;
     private LocalDateTime fechaCreacion;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "autor_respuesta_id")
+    @JoinColumn(name = "autor_respuesta_id")
     private Usuario autorRespuesta;
     private Boolean solucion;
 

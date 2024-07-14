@@ -12,14 +12,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class RespuestaValida implements ValidadorRespuesta {
 
-    @Autowired
-    RespuestaRepository respuestaRepository;
+    private final RespuestaRepository respuestaRepository;
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    TopicoRepository topicoRepository;
+    private final TopicoRepository topicoRepository;
+
+    public RespuestaValida(RespuestaRepository respuestaRepository, UsuarioRepository usuarioRepository, TopicoRepository topicoRepository) {
+        this.respuestaRepository = respuestaRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.topicoRepository = topicoRepository;
+    }
 
     @Override
     public void validar(DatosCrearRespuesta datos) {

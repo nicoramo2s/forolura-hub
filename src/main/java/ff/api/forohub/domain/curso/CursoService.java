@@ -15,14 +15,17 @@ import java.util.List;
 @Service
 public class CursoService {
 
-    @Autowired
-    private CursoRepository cursoRepository;
+    private final CursoRepository cursoRepository;
 
-    @Autowired
-    private TopicoRepository topicoRepository;
+    private final TopicoRepository topicoRepository;
 
-    @Autowired
-    private List<ValidadorCurso> validadorCursos;
+    private final List<ValidadorCurso> validadorCursos;
+
+    public CursoService(CursoRepository cursoRepository, TopicoRepository topicoRepository, List<ValidadorCurso> validadorCursos) {
+        this.cursoRepository = cursoRepository;
+        this.topicoRepository = topicoRepository;
+        this.validadorCursos = validadorCursos;
+    }
 
     public DatosCurso crearCurso(DatosCrearCurso datos) {
         validadorCursos.forEach(v -> v.validar(datos));

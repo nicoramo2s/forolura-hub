@@ -15,14 +15,17 @@ import java.util.List;
 @Service
 public class RespuestaService {
 
-    @Autowired
-    private RespuestaRepository repository;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
-    private TopicoRepository topicoRepository;
-    @Autowired
-    private List<ValidadorRespuesta> validarRespuesta;
+    private final RespuestaRepository repository;
+    private final UsuarioRepository usuarioRepository;
+    private final TopicoRepository topicoRepository;
+    private final List<ValidadorRespuesta> validarRespuesta;
+
+    public RespuestaService(RespuestaRepository repository, UsuarioRepository usuarioRepository, TopicoRepository topicoRepository, List<ValidadorRespuesta> validarRespuesta) {
+        this.repository = repository;
+        this.usuarioRepository = usuarioRepository;
+        this.topicoRepository = topicoRepository;
+        this.validarRespuesta = validarRespuesta;
+    }
 
     public DatosRespuesta crearRespuesta(DatosCrearRespuesta datos) {
 
@@ -77,11 +80,11 @@ public class RespuestaService {
     }
 
     private void idValido(Long id) {
-        if(id == null) {
+        if (id == null) {
             throw new ValidationException("Debe proporcionar el id de la respuesta");
         }
 
-        if(!repository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new ValidacionDeIntegridad("No existe respuesta con id: " + id);
         }
     }

@@ -10,8 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CursoExistenteValidacionCurso implements ValidadorCurso{
 
-    @Autowired
-    CursoRepository repository;
+    private final CursoRepository repository;
+
+    public CursoExistenteValidacionCurso(CursoRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public void validar(DatosCrearCurso datos) {

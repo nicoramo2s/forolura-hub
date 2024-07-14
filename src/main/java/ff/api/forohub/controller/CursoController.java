@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @SecurityRequirement(name = "bearer-key")
 public class CursoController {
 
-    @Autowired
-    private CursoService service;
+    private final CursoService service;
+
+    public CursoController(CursoService service) {
+        this.service = service;
+    }
 
     @PostMapping
     @Transactional
@@ -37,19 +40,19 @@ public class CursoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity cambiarEstadoCurso(@PathVariable Long id){
+    public ResponseEntity cambiarEstadoCurso(@PathVariable Long id) {
         service.cambiarEstado(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/activos")
-    public ResponseEntity<Page<DatosCurso>> listarCursosActivos(@PageableDefault(size=10) Pageable paginacion) {
+    public ResponseEntity<Page<DatosCurso>> listarCursosActivos(@PageableDefault(size = 10) Pageable paginacion) {
         var response = service.listarCursosActivos(paginacion);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/inactivos")
-    public ResponseEntity<Page<DatosCurso>> listarCursosInactivos(@PageableDefault(size=10) Pageable paginacion) {
+    public ResponseEntity<Page<DatosCurso>> listarCursosInactivos(@PageableDefault(size = 10) Pageable paginacion) {
         var response = service.listarCursosInactivos(paginacion);
         return ResponseEntity.ok(response);
     }
@@ -61,7 +64,7 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity mostrarCurso(@PageableDefault(size = 10)Pageable paginacion,
+    public ResponseEntity mostrarCurso(@PageableDefault(size = 10) Pageable paginacion,
                                        @PathVariable @Valid Long id) {
         var response = service.mostrarCurso(id, paginacion);
         return ResponseEntity.ok(response);

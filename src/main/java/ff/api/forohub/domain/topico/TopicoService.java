@@ -16,16 +16,19 @@ import java.util.List;
 @Service
 public class TopicoService {
 
-    @Autowired
-    private TopicoRepository topicoRepository;
-    @Autowired
-    private CursoRepository cursoRepository;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
-    private RespuestaRepository respuestaRepository;
-    @Autowired
-    private List<ValidadorTopico> validarTopico;
+    private final TopicoRepository topicoRepository;
+    private final CursoRepository cursoRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final RespuestaRepository respuestaRepository;
+    private final List<ValidadorTopico> validarTopico;
+
+    public TopicoService(TopicoRepository topicoRepository, CursoRepository cursoRepository, UsuarioRepository usuarioRepository, RespuestaRepository respuestaRepository, List<ValidadorTopico> validarTopico) {
+        this.topicoRepository = topicoRepository;
+        this.cursoRepository = cursoRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.respuestaRepository = respuestaRepository;
+        this.validarTopico = validarTopico;
+    }
 
     public DatosTopico crearTopico(DatosCrearTopico datos) {
 
@@ -68,7 +71,7 @@ public class TopicoService {
     }
 
     public DatosTopicoRespuestas mostrarTopico(Long id, Pageable paginacion) {
-        if(id == null || !topicoRepository.existsById(id)) {
+        if (id == null || !topicoRepository.existsById(id)) {
             throw new ValidationException("no existe topico con ese id");
         }
         var topico = topicoRepository.getReferenceById(id);

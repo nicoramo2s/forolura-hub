@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AutorValido implements ValidadorRespuesta {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public AutorValido(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Override
     public void validar(DatosCrearRespuesta datos) {

@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @SecurityRequirement(name = "bearer-key")
 public class TopicoController {
 
-    @Autowired
-    private TopicoService service;
+    private final TopicoService service;
+
+    public TopicoController(TopicoService service) {
+        this.service = service;
+    }
 
     @PostMapping
     @Transactional
@@ -45,7 +48,7 @@ public class TopicoController {
 
     //TODO: implementar PadeModel
     @GetMapping
-    public ResponseEntity<Page<DatosTopico>> listarTopicos(@PageableDefault(size = 10)Pageable paginacion) {
+    public ResponseEntity<Page<DatosTopico>> listarTopicos(@PageableDefault(size = 10) Pageable paginacion) {
         var response = service.listarTopicos(paginacion);
         return ResponseEntity.ok(response);
     }
@@ -63,8 +66,8 @@ public class TopicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity mostrarTopicoRespuestas(@PageableDefault(size = 10)Pageable paginacion,
-                                        @PathVariable Long id) {
+    public ResponseEntity mostrarTopicoRespuestas(@PageableDefault(size = 10) Pageable paginacion,
+                                                  @PathVariable Long id) {
         var response = service.mostrarTopico(id, paginacion);
         return ResponseEntity.ok(response);
     }
